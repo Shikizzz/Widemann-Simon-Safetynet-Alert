@@ -12,7 +12,7 @@ public class FireStationController {
 
     private FireStationService fireStationService;
 
-    @GetMapping("/firestation") //RSQL parser, @RequestParam, spring-search, spring-filter
+    @GetMapping("/firestation")
     public AllPersonsInStationZone getAllPersonsInStationZone( @RequestParam String stationNumber) throws Exception {
         return fireStationService.getAllPersonsInStationZone(stationNumber);
     }

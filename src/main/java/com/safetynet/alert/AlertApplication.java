@@ -1,5 +1,6 @@
 package com.safetynet.alert;
 
+import com.safetynet.alert.controller.ChildController;
 import com.safetynet.alert.controller.FireStationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +12,8 @@ public class AlertApplication implements CommandLineRunner {
 
 	@Autowired
 	private FireStationController tc;
+	@Autowired
+	private ChildController cc;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AlertApplication.class, args);
@@ -19,6 +22,7 @@ public class AlertApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(tc.getAllPersonsInStationZone("2"));
+		System.out.println(cc.getChildrenInAddress("1509 Culver St"));
 	}
 
 }
