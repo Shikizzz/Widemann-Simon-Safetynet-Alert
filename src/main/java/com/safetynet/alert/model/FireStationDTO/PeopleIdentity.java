@@ -1,6 +1,6 @@
-package com.safetynet.alert.model.DTO;
+package com.safetynet.alert.model.FireStationDTO;
 
-import com.safetynet.alert.model.Person;
+import com.safetynet.alert.model.DAO.Person;
 import lombok.Data;
 
 import java.util.ArrayList;

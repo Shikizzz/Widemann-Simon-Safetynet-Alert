@@ -1,6 +1,9 @@
-package com.safetynet.alert.model.DTO;
-import com.safetynet.alert.model.Person;
+package com.safetynet.alert.model.FireStationDTO;
+import com.safetynet.alert.model.DAO.Person;
 import lombok.Data;
+
+import java.util.ArrayList;
+
 @Data
 public class PersonInStationZone {
     private String firstName;
@@ -21,6 +24,11 @@ public class PersonInStationZone {
         return p;
     }
 
-
-
+    public static ArrayList<PersonInStationZone> personToPersonInStationZoneArray(ArrayList<Person> persons) {
+        ArrayList<PersonInStationZone> p = new ArrayList<>();
+        for (int i=0; i< persons.size(); i++){
+            p.add(personToPersonInStationZone(persons.get(i)));
+        }
+        return p;
+    }
 }

@@ -1,10 +1,9 @@
-package com.safetynet.alert.model.DTO;
+package com.safetynet.alert.model.FireStationDTO;
 
-import com.safetynet.alert.model.DTO.PersonInStationZone;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 @Data
 public class AllPersonsInStationZone {
     private ArrayList<PersonInStationZone> persons = new ArrayList<>();

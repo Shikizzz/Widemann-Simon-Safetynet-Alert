@@ -1,11 +1,9 @@
 package com.safetynet.alert.repository;
-import com.safetynet.alert.model.AllData;
+import com.safetynet.alert.model.DAO.AllData;
 
-import com.safetynet.alert.model.FireStation;
-import com.safetynet.alert.model.MedicalRecord;
-import com.safetynet.alert.model.Person;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import com.safetynet.alert.model.DAO.FireStation;
+import com.safetynet.alert.model.DAO.MedicalRecord;
+import com.safetynet.alert.model.DAO.Person;
 import org.springframework.stereotype.Repository;
 import lombok.Data;
 import java.io.File;

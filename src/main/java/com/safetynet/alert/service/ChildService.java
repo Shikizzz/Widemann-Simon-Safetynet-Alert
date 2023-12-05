@@ -1,17 +1,16 @@
 package com.safetynet.alert.service;
 
-import com.safetynet.alert.model.AllData;
-import com.safetynet.alert.model.DTO.ChildInfo;
-import com.safetynet.alert.model.FireStation;
-import com.safetynet.alert.model.MedicalRecord;
-import com.safetynet.alert.model.Person;
+import com.safetynet.alert.model.DAO.AllData;
+import com.safetynet.alert.model.ChildDTO.ChildInfo;
+import com.safetynet.alert.model.DAO.Person;
+import com.safetynet.alert.model.ChildDTO.ChildList;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-import static com.safetynet.alert.model.DTO.PeopleIdentity.personToPeopleIdentityArray;
+import static com.safetynet.alert.model.FireStationDTO.PeopleIdentity.personToPeopleIdentityArray;
 
 @Component
 public class ChildService {
@@ -26,14 +25,8 @@ public class ChildService {
     public ArrayList<Person> getPersons() throws Exception {
         return adr.getPersons();
     }
-    public ArrayList<FireStation> getFireStations() throws Exception {
-        return adr.getFireStations();
-    }
-    public ArrayList<MedicalRecord> getMedicalRecords() throws Exception {
-        return adr.getMedicalRecords();
-    }
 
-    public ArrayList<ChildInfo> getChildrenInAddress(String address) throws Exception {
+    public ChildList getChildrenInAddress(String address) throws Exception {
         ArrayList<Person> personsInAddress = getPeopleInAddress(address);
         ArrayList<ChildInfo> childrenInAddress = new ArrayList<>();
         for (int i=0; i<personsInAddress.size(); i++){
@@ -48,7 +41,9 @@ public class ChildService {
                 childrenInAddress.add(child);
             }
         }
-        return childrenInAddress;
+        ChildList list = new ChildList();
+        list.setChildList(childrenInAddress);
+        return list;
     }
     public ArrayList<Person> getPeopleInAddress(String address) throws Exception {
         ArrayList<Person> allPersons = getPersons();

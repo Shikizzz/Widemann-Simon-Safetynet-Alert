@@ -1,4 +1,4 @@
-package com.safetynet.alert.model;
+package com.safetynet.alert.model.DAO;
 
 import lombok.Data;
 @Data

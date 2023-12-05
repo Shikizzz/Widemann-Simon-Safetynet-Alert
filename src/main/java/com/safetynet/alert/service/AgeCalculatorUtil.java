@@ -1,8 +1,8 @@
 package com.safetynet.alert.service;
 
-import com.safetynet.alert.model.DTO.PersonInStationZone;
-import com.safetynet.alert.model.MedicalRecord;
-import com.safetynet.alert.model.Person;
+import com.safetynet.alert.model.FireStationDTO.PersonInStationZone;
+import com.safetynet.alert.model.DAO.MedicalRecord;
+import com.safetynet.alert.model.DAO.Person;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static com.safetynet.alert.model.DTO.PersonInStationZone.personToPersonInStationZone;
+import static com.safetynet.alert.model.FireStationDTO.PersonInStationZone.personToPersonInStationZone;
 
 @Component
 public class AgeCalculatorUtil {

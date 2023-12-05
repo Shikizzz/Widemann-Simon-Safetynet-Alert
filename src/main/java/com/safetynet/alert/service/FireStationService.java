@@ -1,14 +1,14 @@
 package com.safetynet.alert.service;
 
-import com.safetynet.alert.model.*;
-import com.safetynet.alert.model.DTO.AllPersonsInStationZone;
-import com.safetynet.alert.model.DTO.PersonInStationZone;
+import com.safetynet.alert.model.DAO.FireStation;
+import com.safetynet.alert.model.DAO.Person;
+import com.safetynet.alert.model.FireStationDTO.AllPersonsInStationZone;
+import com.safetynet.alert.model.FireStationDTO.PersonInStationZone;
+import com.safetynet.alert.model.PhoneDTO.PhoneList;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.Period;
+
 import java.util.ArrayList;
 
 
@@ -18,11 +18,7 @@ public class FireStationService {
     private AllDataRepository adr;
     @Autowired
     private AgeCalculatorUtil ageCalcul;
-/*
-    public AllData getData() throws Exception {
-        return adr.getData();
-    }
-*/
+
     public ArrayList<Person> getPersons() throws Exception {
         return adr.getPersons();
     }
@@ -30,13 +26,10 @@ public class FireStationService {
     public ArrayList<FireStation> getFireStations() throws Exception {
         return adr.getFireStations();
     }
-/*
-    public ArrayList<MedicalRecord> getMedicalRecords() throws Exception {
-        return adr.getMedicalRecords();
-    }
-*/
+
     public AllPersonsInStationZone getAllPersonsInStationZone(String stationNumber) throws Exception {
-        ArrayList<PersonInStationZone> persons = getPersonsInStationZone(stationNumber);
+        ArrayList<Person> p = getPersonsInStationZone(stationNumber);
+        ArrayList<PersonInStationZone> persons = PersonInStationZone.personToPersonInStationZoneArray(p); //static method
         int adultCount = 0;
         int childrenCount = 0;
         for (int i = 0; i < persons.size(); i++) {
@@ -50,14 +43,14 @@ public class FireStationService {
         return result;
     }
 
-    public ArrayList<PersonInStationZone> getPersonsInStationZone(String stationNumber) throws Exception {
+    public ArrayList<Person> getPersonsInStationZone(String stationNumber) throws Exception {
         ArrayList<Person> persons = getPersons();
         ArrayList<FireStation> stationList = filterStationsByZone(stationNumber);
-        ArrayList<PersonInStationZone> personsInZone = new ArrayList<>();
+        ArrayList<Person> personsInZone = new ArrayList<>();
         for (int i = 0; i < persons.size(); i++) {
             for (int j = 0; j < stationList.size(); j++) {
                 if (persons.get(i).getAddress().equals(stationList.get(j).getAddress())) {
-                    PersonInStationZone p = PersonInStationZone.personToPersonInStationZone(persons.get(i)); //call to a Static Method. OK ?
+                    Person p = persons.get(i);
                     personsInZone.add(p);
                     break;
                 }
@@ -65,7 +58,6 @@ public class FireStationService {
         }
         return personsInZone;
     }
-
     public ArrayList<FireStation> filterStationsByZone(String stationNumber) throws Exception {
         ArrayList<FireStation> stationList = new ArrayList<>();
         ArrayList<FireStation> fireStations = getFireStations();
@@ -75,6 +67,18 @@ public class FireStationService {
             }
         }
         return stationList;
+    }
+
+
+    public PhoneList getPhoneNumberInStationZone(String stationNumber) throws Exception {
+        ArrayList<Person> persons = getPersonsInStationZone(stationNumber);
+        ArrayList<String> phoneNumbers = new ArrayList<>();
+        for(int i=0; i<persons.size(); i++){
+            phoneNumbers.add(persons.get(i).getPhone());
+        }
+        PhoneList phoneList = new PhoneList();
+        phoneList.setPhoneNumbers(phoneNumbers);
+        return phoneList;
     }
 
 }

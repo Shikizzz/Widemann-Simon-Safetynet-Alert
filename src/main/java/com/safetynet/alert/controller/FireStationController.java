@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller;
 
-import com.safetynet.alert.model.DTO.AllPersonsInStationZone;
+import com.safetynet.alert.model.FireStationDTO.AllPersonsInStationZone;
 import com.safetynet.alert.service.FireStationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
