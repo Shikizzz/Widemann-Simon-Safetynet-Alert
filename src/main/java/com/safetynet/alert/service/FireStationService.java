@@ -19,11 +19,10 @@ public class FireStationService {
     @Autowired
     private AgeCalculatorUtil ageCalcul;
 
-    public ArrayList<Person> getPersons() throws Exception {
+    private ArrayList<Person> getPersons() throws Exception {
         return adr.getPersons();
     }
-
-    public ArrayList<FireStation> getFireStations() throws Exception {
+    private ArrayList<FireStation> getFireStations() throws Exception {
         return adr.getFireStations();
     }
 
@@ -43,7 +42,7 @@ public class FireStationService {
         return result;
     }
 
-    public ArrayList<Person> getPersonsInStationZone(String stationNumber) throws Exception {
+    private ArrayList<Person> getPersonsInStationZone(String stationNumber) throws Exception {
         ArrayList<Person> persons = getPersons();
         ArrayList<FireStation> stationList = filterStationsByZone(stationNumber);
         ArrayList<Person> personsInZone = new ArrayList<>();
@@ -58,7 +57,7 @@ public class FireStationService {
         }
         return personsInZone;
     }
-    public ArrayList<FireStation> filterStationsByZone(String stationNumber) throws Exception {
+    private ArrayList<FireStation> filterStationsByZone(String stationNumber) throws Exception {
         ArrayList<FireStation> stationList = new ArrayList<>();
         ArrayList<FireStation> fireStations = getFireStations();
         for (int i = 0; i < fireStations.size(); i++) {

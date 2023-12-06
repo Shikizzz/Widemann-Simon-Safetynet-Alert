@@ -36,7 +36,7 @@ public class AgeCalculatorUtil {
         return Period.between(birthDate, curDate).getYears();
 
     }
-    public String getBirthDate(PersonInStationZone p) throws Exception {
+    private String getBirthDate(PersonInStationZone p) throws Exception {
         String firstName = p.getFirstName();
         String lastName = p.getLastName();
         ArrayList<MedicalRecord> records = getMedicalRecords();

@@ -19,10 +19,10 @@ public class ChildService {
     @Autowired
     private AgeCalculatorUtil ageCalcul;
 
-    public AllData getData() throws Exception {
+    private AllData getData() throws Exception {
         return adr.getData();
     }
-    public ArrayList<Person> getPersons() throws Exception {
+    private ArrayList<Person> getPersons() throws Exception {
         return adr.getPersons();
     }
 
@@ -45,7 +45,7 @@ public class ChildService {
         list.setChildList(childrenInAddress);
         return list;
     }
-    public ArrayList<Person> getPeopleInAddress(String address) throws Exception {
+    private ArrayList<Person> getPeopleInAddress(String address) throws Exception {
         ArrayList<Person> allPersons = getPersons();
         ArrayList<Person> personsInAddress = new ArrayList<>();
         for(int i=0; i<allPersons.size(); i++){
