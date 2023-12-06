@@ -1,4 +1,4 @@
-package com.safetynet.alert.model.addressDTO;
+package com.safetynet.alert.model.AddressDTO;
 
 import lombok.Data;
 

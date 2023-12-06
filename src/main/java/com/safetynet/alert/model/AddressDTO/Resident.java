@@ -1,12 +1,9 @@
-package com.safetynet.alert.model.addressDTO;
+package com.safetynet.alert.model.AddressDTO;
 
 import lombok.Data;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.util.ArrayList;
-
 @Data
-public class AddressPeople {
+public class Resident {
     public String firstName;
     public String lastName;
     public String phone;

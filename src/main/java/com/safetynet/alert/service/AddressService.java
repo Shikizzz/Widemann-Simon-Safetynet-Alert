@@ -3,14 +3,13 @@ package com.safetynet.alert.service;
 import com.safetynet.alert.model.DAO.FireStation;
 import com.safetynet.alert.model.DAO.MedicalRecord;
 import com.safetynet.alert.model.DAO.Person;
-import com.safetynet.alert.model.addressDTO.AddressInfos;
-import com.safetynet.alert.model.addressDTO.AddressPeople;
-import com.safetynet.alert.model.addressDTO.MedicalInfos;
+import com.safetynet.alert.model.AddressDTO.AddressInfos;
+import com.safetynet.alert.model.AddressDTO.Resident;
+import com.safetynet.alert.model.AddressDTO.MedicalInfos;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 @Component
@@ -35,12 +34,12 @@ public class AddressService {
         infos.setFireStationNumber(getStationNumber(address));
         return infos;
     }
-    private ArrayList<AddressPeople> getAllPeopleList(String address) throws Exception {
-        ArrayList<AddressPeople> peopleInAddress = new ArrayList<>();
+    public ArrayList<Resident> getAllPeopleList(String address) throws Exception {
+        ArrayList<Resident> peopleInAddress = new ArrayList<>();
         ArrayList<Person> persons = getPersons();
         for(int i=0; i< persons.size(); i++){
             if(persons.get(i).getAddress().equals(address)){
-                AddressPeople people = new AddressPeople();
+                Resident people = new Resident();
                 people.setFirstName(persons.get(i).getFirstName());
                 people.setLastName(persons.get(i).getLastName());
                 people.setPhone(persons.get(i).getPhone());

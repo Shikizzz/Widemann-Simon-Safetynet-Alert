@@ -57,7 +57,7 @@ public class FireStationService {
         }
         return personsInZone;
     }
-    private ArrayList<FireStation> filterStationsByZone(String stationNumber) throws Exception {
+    public ArrayList<FireStation> filterStationsByZone(String stationNumber) throws Exception {
         ArrayList<FireStation> stationList = new ArrayList<>();
         ArrayList<FireStation> fireStations = getFireStations();
         for (int i = 0; i < fireStations.size(); i++) {

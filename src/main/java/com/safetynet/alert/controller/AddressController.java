@@ -1,7 +1,6 @@
 package com.safetynet.alert.controller;
 
-import com.safetynet.alert.model.ChildDTO.ChildList;
-import com.safetynet.alert.model.addressDTO.AddressInfos;
+import com.safetynet.alert.model.AddressDTO.AddressInfos;
 import com.safetynet.alert.service.AddressService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AddressController {
 
-    private AddressService addressServiceService;
+    private AddressService addressService;
 
     @GetMapping("/fire")
     public AddressInfos getChildrenInAddress(@RequestParam String address) throws Exception {
-        return addressServiceService.getAllAddressInfos(address);
+        return addressService.getAllAddressInfos(address);
     }
 }
