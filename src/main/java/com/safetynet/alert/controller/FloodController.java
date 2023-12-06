@@ -16,7 +16,7 @@ public class FloodController {
     private FloodService floodService;
 
     @GetMapping("/flood/stations")
-    public AllFloodStations getChildrenInAddress(@RequestParam ArrayList<String> stations) throws Exception {
+    public AllFloodStations getFloodInfo(@RequestParam ArrayList<String> stations) throws Exception {
         return floodService.getFloodInfo(stations);
     }
 }

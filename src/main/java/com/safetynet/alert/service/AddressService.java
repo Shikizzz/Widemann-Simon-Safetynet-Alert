@@ -50,7 +50,7 @@ public class AddressService {
         }
         return peopleInAddress;
     }
-    private MedicalInfos getPersonMedicalInfos(Person person) throws Exception {
+    public MedicalInfos getPersonMedicalInfos(Person person) throws Exception {
         ArrayList<MedicalRecord> medicalList = getMedicalRecords();
         for(int i=0; i< medicalList.size(); i++){
             if(person.getFirstName().equals(medicalList.get(i).getFirstName())&&person.getLastName().equals(medicalList.get(i).getLastName())){

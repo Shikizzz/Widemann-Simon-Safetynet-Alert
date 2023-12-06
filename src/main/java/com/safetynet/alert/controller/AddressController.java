@@ -14,7 +14,7 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping("/fire")
-    public AddressInfos getChildrenInAddress(@RequestParam String address) throws Exception {
+    public AddressInfos getAllAddressInfos(@RequestParam String address) throws Exception {
         return addressService.getAllAddressInfos(address);
     }
 }

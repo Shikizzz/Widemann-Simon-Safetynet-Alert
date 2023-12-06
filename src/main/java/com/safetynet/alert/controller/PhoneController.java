@@ -13,7 +13,7 @@ public class PhoneController {
     private FireStationService fireStationService;
 
     @GetMapping("/phoneAlert")
-    public PhoneList getAllPersonsInStationZone(@RequestParam String firestation) throws Exception {
+    public PhoneList getPhoneNumberInStationZone(@RequestParam String firestation) throws Exception {
         return fireStationService.getPhoneNumberInStationZone(firestation);
     }
 }
