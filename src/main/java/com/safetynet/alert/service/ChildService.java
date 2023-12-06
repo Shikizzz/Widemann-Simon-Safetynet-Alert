@@ -7,9 +7,7 @@ import com.safetynet.alert.model.ChildDTO.ChildList;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
-
 import static com.safetynet.alert.model.FireStationDTO.PeopleIdentity.personToPeopleIdentityArray;
 
 @Component

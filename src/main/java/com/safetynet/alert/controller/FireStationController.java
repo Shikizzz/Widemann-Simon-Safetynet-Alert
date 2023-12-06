@@ -16,12 +16,4 @@ public class FireStationController {
     public AllPersonsInStationZone getAllPersonsInStationZone( @RequestParam String stationNumber) throws Exception {
         return fireStationService.getAllPersonsInStationZone(stationNumber);
     }
-
-
-
-    /*
-    public String allDataToString() throws Exception {
-        return testService.getData().toString();
-    }
-    */
 }

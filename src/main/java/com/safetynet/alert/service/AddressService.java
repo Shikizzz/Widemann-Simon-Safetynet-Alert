@@ -9,7 +9,6 @@ import com.safetynet.alert.model.AddressDTO.MedicalInfos;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component

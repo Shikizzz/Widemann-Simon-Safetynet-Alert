@@ -1,7 +1,6 @@
 package com.safetynet.alert.model.AddressDTO;
 
 import lombok.Data;
-
 @Data
 public class Resident {
     public String firstName;

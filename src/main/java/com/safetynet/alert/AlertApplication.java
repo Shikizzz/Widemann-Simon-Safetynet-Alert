@@ -21,8 +21,6 @@ public class AlertApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(tc.getAllPersonsInStationZone("2"));
-		System.out.println(cc.getChildrenInAddress("1509 Culver St"));
 	}
 
 }

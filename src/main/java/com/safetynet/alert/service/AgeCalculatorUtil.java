@@ -6,12 +6,10 @@ import com.safetynet.alert.model.DAO.Person;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import static com.safetynet.alert.model.FireStationDTO.PersonInStationZone.personToPersonInStationZone;
 
 @Component

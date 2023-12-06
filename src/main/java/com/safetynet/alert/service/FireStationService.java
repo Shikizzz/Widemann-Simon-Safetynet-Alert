@@ -8,9 +8,7 @@ import com.safetynet.alert.model.PhoneDTO.PhoneList;
 import com.safetynet.alert.repository.AllDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
-
 
 @Component
 public class FireStationService {

@@ -5,10 +5,8 @@ import com.safetynet.alert.model.FloodDTO.AllFloodStations;
 import com.safetynet.alert.model.FloodDTO.FloodStation;
 import com.safetynet.alert.model.FloodDTO.Foyer;
 import com.safetynet.alert.model.AddressDTO.Resident;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component
