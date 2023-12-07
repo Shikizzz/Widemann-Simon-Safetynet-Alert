@@ -1,4 +1,4 @@
-package com.safetynet.alert.controller;
+package com.safetynet.alert.controller.GetControllers;
 
 import com.safetynet.alert.model.PhoneDTO.PhoneList;
 import com.safetynet.alert.service.FireStationService;

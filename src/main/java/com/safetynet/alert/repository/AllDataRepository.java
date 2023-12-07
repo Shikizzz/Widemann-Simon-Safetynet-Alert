@@ -4,6 +4,7 @@ import com.safetynet.alert.model.DAO.AllData;
 import com.safetynet.alert.model.DAO.FireStation;
 import com.safetynet.alert.model.DAO.MedicalRecord;
 import com.safetynet.alert.model.DAO.Person;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import lombok.Data;
 import java.io.File;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 @Repository
 public class AllDataRepository {
 
-    private File file = new File("C:\\Users\\widem\\Desktop\\OpenClassrooms\\P5\\alert\\src\\main\\resources\\data.json");
+    private File file = new File("C:\\Users\\widem\\Desktop\\OpenClassrooms\\P5\\alert\\src\\main\\resources\\dataTest.json");
     /*Resource resource = new ClassPathResource("../../../../../resources/data.json");
     File file;
     {
@@ -43,4 +44,5 @@ public class AllDataRepository {
         AllData allData = getData();
         return allData.getMedicalrecords();
     }
+
 }

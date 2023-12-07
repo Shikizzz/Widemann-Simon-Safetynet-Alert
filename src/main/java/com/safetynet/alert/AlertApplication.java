@@ -1,7 +1,7 @@
 package com.safetynet.alert;
 
-import com.safetynet.alert.controller.ChildController;
-import com.safetynet.alert.controller.FireStationController;
+import com.safetynet.alert.controller.GetControllers.ChildController;
+import com.safetynet.alert.controller.GetControllers.FireStationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

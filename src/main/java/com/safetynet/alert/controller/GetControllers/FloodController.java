@@ -1,4 +1,4 @@
-package com.safetynet.alert.controller;
+package com.safetynet.alert.controller.GetControllers;
 
 import com.safetynet.alert.model.FloodDTO.AllFloodStations;
 import com.safetynet.alert.service.FloodService;

@@ -1,4 +1,4 @@
-package com.safetynet.alert.controller;
+package com.safetynet.alert.controller.GetControllers;
 
 import com.safetynet.alert.model.AddressDTO.AddressInfos;
 import com.safetynet.alert.service.AddressService;
