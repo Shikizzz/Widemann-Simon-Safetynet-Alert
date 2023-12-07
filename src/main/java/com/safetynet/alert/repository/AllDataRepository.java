@@ -4,7 +4,6 @@ import com.safetynet.alert.model.DAO.AllData;
 import com.safetynet.alert.model.DAO.FireStation;
 import com.safetynet.alert.model.DAO.MedicalRecord;
 import com.safetynet.alert.model.DAO.Person;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import lombok.Data;
 import java.io.File;

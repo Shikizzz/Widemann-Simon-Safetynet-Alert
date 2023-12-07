@@ -23,7 +23,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/person")
-    public void deletePerson(@RequestParam String firstName, String lastName) throws IOException {
+    public void deletePerson(@RequestParam String firstName,@RequestParam String lastName) throws IOException {
         personRepository.deletePerson(firstName, lastName);
     }
 
