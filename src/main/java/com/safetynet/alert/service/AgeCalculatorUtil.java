@@ -4,6 +4,8 @@ import com.safetynet.alert.model.FireStationDTO.PersonInStationZone;
 import com.safetynet.alert.model.DAO.MedicalRecord;
 import com.safetynet.alert.model.DAO.Person;
 import com.safetynet.alert.repository.AllDataRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import static com.safetynet.alert.model.FireStationDTO.PersonInStationZone.perso
 
 @Component
 public class AgeCalculatorUtil {
+    private static Logger logger = LoggerFactory.getLogger(AgeCalculatorUtil.class);
     @Autowired
     private AllDataRepository adr;
 
@@ -40,10 +43,12 @@ public class AgeCalculatorUtil {
         ArrayList<MedicalRecord> records = getMedicalRecords();
         for(int i=0; i<records.size(); i++){
             if(firstName.equals(records.get(i).getFirstName()) && lastName.equals(records.get(i).getLastName())){
+                logger.debug("Birthdate get : " + records.get(i).getBirthdate());
                 return records.get(i).getBirthdate();
             }
         }
-        return null; //gérer l'exception
+        logger.error("Person's Medical Record not found, impossible to get Birthdate for Age calculation.");
+        return null;
     }
 }
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alert.model.DAO.AllData;
 import com.safetynet.alert.model.DAO.FireStation;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.Iterator;
 @Repository
 public class FirestationRepository {
 
+    private static Logger logger = LoggerFactory.getLogger(FirestationRepository.class);
     @Autowired
     private AllDataRepository adr;
 
@@ -24,8 +27,8 @@ public class FirestationRepository {
         newFirestation.setAddress(address);
         newFirestation.setStation(stationNumber) ;
         for(int i=0; i<fireStations.size(); i++) {
-            if (newFirestation.getAddress().equals(fireStations.get(i).getAddress())&&newFirestation.getStation().equals(fireStations.get(i).getStation())){
-                //TODO Add a logger
+            if (newFirestation.getAddress().equals(fireStations.get(i).getAddress())){
+                logger.error("This Firestation is already in DataBase, maybe you want to update it ?");
                 return;  //we don't add if the Firestation is already in DB.
             }
         }
@@ -33,6 +36,7 @@ public class FirestationRepository {
         data.setFirestations(fireStations);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+        logger.info("Firestation added to Database successfully");
     }
 
     public void putFirestation(String address, String stationNumber) throws IOException {
@@ -40,14 +44,15 @@ public class FirestationRepository {
         ArrayList<FireStation> fireStations = adr.getFireStations();
         for(int i=0; i<fireStations.size(); i++) {
             if (fireStations.get(i).getAddress().equals(address)){
-                //TODO Add a logger
                 fireStations.get(i).setStation(stationNumber);
-                break;  //address is unique, no need to look for other stations
+                data.setFirestations(fireStations);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+                logger.info("Firestation updated in Database successfully");
+                return;  //address is unique, no need to look for other stations
             }
         }
-        data.setFirestations(fireStations);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+        logger.error("Firestation not found in DataBase, maybe you want to add it ?");
     }
 
     public void deleteStationByAddress(String address) throws IOException {
@@ -55,29 +60,36 @@ public class FirestationRepository {
         ArrayList<FireStation> fireStations = adr.getFireStations();
         for(int i=0; i<fireStations.size(); i++) {
             if (fireStations.get(i).getAddress().equals(address)){
-                //TODO Add a logger
                 fireStations.remove(i);
-                break;  //address is unique, no need to look for other stations
+                data.setFirestations(fireStations);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+                logger.info("Firestation deleted from Database successfully");
+                return;  //address is unique, no need to look for other stations
             }
         }
-        data.setFirestations(fireStations);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+        logger.error("Firestation not found in DataBase, nothing to delete");
     }
 
     public void deleteStationByNumber(String stationNumber) throws IOException {
         AllData data = adr.getData();
         ArrayList<FireStation> fireStations = adr.getFireStations();
         Iterator<FireStation> itr = fireStations.iterator();
+        boolean foundOne = false;
         while (itr.hasNext()) {
             FireStation fireStation = itr.next();
             if (fireStation.getStation().equals(stationNumber)){
                 itr.remove();
+                foundOne = true;
             }
         }
         data.setFirestations(fireStations);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(adr.getFile(), data);
+        if(foundOne){
+            logger.info("Firestations deleted from Database successfully");
+        }
+        else logger.error("No Firestation with this number found in DataBase, nothing to delete");
     }
 
 }

@@ -6,12 +6,16 @@ import com.safetynet.alert.model.FireStationDTO.AllPersonsInStationZone;
 import com.safetynet.alert.model.FireStationDTO.PersonInStationZone;
 import com.safetynet.alert.model.PhoneDTO.PhoneList;
 import com.safetynet.alert.repository.AllDataRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Component
 public class FireStationService {
+    private static Logger logger = LoggerFactory.getLogger(FireStationService.class);
     @Autowired
     private AllDataRepository adr;
     @Autowired
@@ -37,6 +41,9 @@ public class FireStationService {
             }
         }
         AllPersonsInStationZone result = new AllPersonsInStationZone(persons, adultCount, childrenCount);
+        if(p.size()>0) {
+            logger.info("There are " + childrenCount + " children and " + adultCount + " adults at this Address. Their info has beeen retrieved");
+        }
         return result;
     }
 
@@ -44,14 +51,17 @@ public class FireStationService {
         ArrayList<Person> persons = getPersons();
         ArrayList<FireStation> stationList = filterStationsByZone(stationNumber);
         ArrayList<Person> personsInZone = new ArrayList<>();
-        for (int i = 0; i < persons.size(); i++) {
+        for (int i = 0; i < persons.size(); i++) { //for each person, we look if it is in Station zone
             for (int j = 0; j < stationList.size(); j++) {
                 if (persons.get(i).getAddress().equals(stationList.get(j).getAddress())) {
                     Person p = persons.get(i);
                     personsInZone.add(p);
-                    break;
+                    break; //no need to go further when we matched the person with his Firestation
                 }
             }
+        }
+        if(personsInZone.size()==0){
+            logger.error("No one found in the Firestation zone");
         }
         return personsInZone;
     }
@@ -63,6 +73,9 @@ public class FireStationService {
                 stationList.add(fireStations.get(i));
             }
         }
+        if(stationList.size()==0){
+            logger.error("No Firestation with number "+stationNumber+" found in database. Please retry with another number.");
+        }
         return stationList;
     }
 
@@ -73,8 +86,12 @@ public class FireStationService {
         for(int i=0; i<persons.size(); i++){
             phoneNumbers.add(persons.get(i).getPhone());
         }
+        ArrayList<String> phoneNumbersNoDouble = new ArrayList<>(new HashSet<>(phoneNumbers)); //removes doubles
         PhoneList phoneList = new PhoneList();
-        phoneList.setPhoneNumbers(phoneNumbers);
+        phoneList.setPhoneNumbers(phoneNumbersNoDouble);
+        if(phoneNumbersNoDouble.size()>0) {
+            logger.info("The list of all Phone Numbers from people in Firestation" + stationNumber + "\'s juridiction have been retrieved");
+        }
         return phoneList;
     }
 

@@ -5,6 +5,8 @@ import com.safetynet.alert.model.ChildDTO.ChildInfo;
 import com.safetynet.alert.model.DAO.Person;
 import com.safetynet.alert.model.ChildDTO.ChildList;
 import com.safetynet.alert.repository.AllDataRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -12,14 +14,13 @@ import static com.safetynet.alert.model.FireStationDTO.PeopleIdentity.personToPe
 
 @Component
 public class ChildService {
+
+    private static Logger logger = LoggerFactory.getLogger(ChildService.class);
     @Autowired
     private AllDataRepository adr;
     @Autowired
     private AgeCalculatorUtil ageCalcul;
 
-    private AllData getData() throws Exception {
-        return adr.getData();
-    }
     private ArrayList<Person> getPersons() throws Exception {
         return adr.getPersons();
     }
@@ -41,6 +42,9 @@ public class ChildService {
         }
         ChildList list = new ChildList();
         list.setChildList(childrenInAddress);
+        if(childrenInAddress.size()>0) {
+            logger.info((childrenInAddress.size()) + " children found at this Address");
+        }
         return list;
     }
     private ArrayList<Person> getPeopleInAddress(String address) throws Exception {
@@ -51,9 +55,14 @@ public class ChildService {
                 personsInAddress.add(allPersons.get(i));
             }
         }
+        if(personsInAddress.size()==0){
+            logger.error("No one found in this address. Address may be wrong.");
+        }
         return personsInAddress;
     }
 
+
+    //Other version, because information are redondant in the first one
 /*
 public ChildInAddress getChildrenInAddress(String address) throws Exception { //
         ArrayList<Person> personsInAddress = getPeopleInAddress(address);

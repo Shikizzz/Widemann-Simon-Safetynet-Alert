@@ -4,13 +4,15 @@ import com.safetynet.alert.model.DAO.Person;
 import com.safetynet.alert.model.PersonInfoDTO.AllPersonInfo;
 import com.safetynet.alert.model.PersonInfoDTO.PersonInfo;
 import com.safetynet.alert.repository.AllDataRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
 public class PersonInfoService {
-
+    private static Logger logger = LoggerFactory.getLogger(PersonInfoService.class);
     @Autowired
     private AllDataRepository adr;
     @Autowired
@@ -33,6 +35,10 @@ public class PersonInfoService {
         }
         AllPersonInfo allPersonInfo = new AllPersonInfo();
         allPersonInfo.setPersonsInfo(personsInfo);
+        if (personsInfo.size()==0){
+            logger.error("No one found with this name in DataBase");
+        }
+        else logger.info("All persons named "+firstName+" "+lastName+" info has been retrieved");
         return allPersonInfo;
     }
 
