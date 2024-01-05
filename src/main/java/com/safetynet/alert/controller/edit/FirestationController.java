@@ -1,7 +1,7 @@
 package com.safetynet.alert.controller.edit;
 
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.service.edit.FirestationEditer;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

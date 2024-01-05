@@ -7,7 +7,6 @@ import com.safetynet.alert.repository.AllDataRepository;
 import com.safetynet.alert.service.AgeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
@@ -16,19 +15,18 @@ import java.util.ArrayList;
 @Component
 public class PersonInfoService {
     private static Logger logger = LoggerFactory.getLogger(PersonInfoService.class);
-    @Autowired
-    private AllDataRepository adr;
-    @Autowired
-    private AgeCalculator ageCalcul;
-    @Autowired
-    private AddressService addressService;
+    private final AllDataRepository adr;
+    private final AgeCalculator ageCalcul;
+    private final AddressService addressService;
 
-    private ArrayList<Person> getPersons() throws FileNotFoundException {
-        return adr.getPersons();
+    public PersonInfoService(AllDataRepository adr, AgeCalculator ageCalcul, AddressService addressService) {
+        this.adr = adr;
+        this.ageCalcul = ageCalcul;
+        this.addressService = addressService;
     }
 
     public AllPersonInfo getAllPersonInCityInfo(String firstName, String lastName) throws FileNotFoundException {
-        ArrayList<Person> persons = getPersons();
+        ArrayList<Person> persons = adr.getPersons();
         ArrayList<PersonInfo> personsInfo = new ArrayList<>();
         for (int i=0; i< persons.size(); i++){
             if(persons.get(i).getFirstName().equals(firstName)&&persons.get(i).getLastName().equals(lastName)){

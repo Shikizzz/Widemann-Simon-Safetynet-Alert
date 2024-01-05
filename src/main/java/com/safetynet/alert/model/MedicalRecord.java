@@ -10,4 +10,14 @@ public class MedicalRecord {
     private String[] medications;
     private String[] allergies;
 
+    public MedicalRecord(String firstName, String lastName, String birthdate, String[] medications, String[] allergies) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.medications = medications;
+        this.allergies = allergies;
+    }
+
+    public MedicalRecord() {
+    }
 }

@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.get;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.DTO.CommunityEmailDTO.CityEmails;
 import com.safetynet.alert.service.get.CommunityEmailService;
 import lombok.AllArgsConstructor;

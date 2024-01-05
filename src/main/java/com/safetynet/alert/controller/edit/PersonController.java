@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.edit;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.Person;
 import com.safetynet.alert.service.edit.PersonEditer;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 @AllArgsConstructor
 @RestController

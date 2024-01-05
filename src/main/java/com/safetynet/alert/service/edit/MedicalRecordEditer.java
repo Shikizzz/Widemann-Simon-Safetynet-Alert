@@ -3,26 +3,25 @@ package com.safetynet.alert.service.edit;
 import com.safetynet.alert.model.AllData;
 import com.safetynet.alert.model.MedicalRecord;
 import com.safetynet.alert.repository.AllDataRepository;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
-@Data
 @Repository
 public class MedicalRecordEditer {
 
     private static Logger logger = LoggerFactory.getLogger(MedicalRecordEditer.class);
-    @Autowired
-    AllDataRepository adr;
+    private final AllDataRepository adr;
+    public MedicalRecordEditer(AllDataRepository adr) {
+        this.adr = adr;
+    }
+
     public void postMedicalRecord(MedicalRecord medicalRecord) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<MedicalRecord> medicalRecords =  adr.getMedicalRecords();
+        ArrayList<MedicalRecord> medicalRecords = data.getMedicalrecords();
         for(int i=0; i<medicalRecords.size(); i++) {
             if (medicalRecord.getFirstName().equals(medicalRecords.get(i).getFirstName())&&medicalRecord.getLastName().equals(medicalRecords.get(i).getLastName())){
                 logger.error("This Medical Record is already in DataBase, maybe you want to update it ?");
@@ -37,7 +36,7 @@ public class MedicalRecordEditer {
 
     public void putMedicalRecord(MedicalRecord medicalRecord) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<MedicalRecord> medicalRecords=  adr.getMedicalRecords();
+        ArrayList<MedicalRecord> medicalRecords = data.getMedicalrecords();
         for(int i=0; i<medicalRecords.size(); i++) {
             if (medicalRecord.getFirstName().equals(medicalRecords.get(i).getFirstName())&&medicalRecord.getLastName().equals(medicalRecords.get(i).getLastName())){
                 medicalRecords.get(i).setBirthdate(medicalRecord.getBirthdate());
@@ -54,7 +53,7 @@ public class MedicalRecordEditer {
 
     public void deleteMedicalRecord(String firstName, String lastName) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<MedicalRecord> medicalRecords=  adr.getMedicalRecords();
+        ArrayList<MedicalRecord> medicalRecords = data.getMedicalrecords();
         for(int i=0; i<medicalRecords.size(); i++) {
             if (firstName.equals(medicalRecords.get(i).getFirstName())&&lastName.equals(medicalRecords.get(i).getLastName())){
                 medicalRecords.remove(i);
@@ -65,6 +64,5 @@ public class MedicalRecordEditer {
             }
         }
         logger.error("No Medical Record with this Name found in DataBase, nothing to delete");
-
     }
 }

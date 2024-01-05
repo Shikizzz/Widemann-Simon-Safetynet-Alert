@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.get;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.DTO.FireStationDTO.AllPersonsInStationZone;
 import com.safetynet.alert.service.get.FireStationService;
 import lombok.AllArgsConstructor;

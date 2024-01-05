@@ -1,30 +1,27 @@
 package com.safetynet.alert.service.get;
 
 import com.safetynet.alert.model.DTO.ChildDTO.ChildInfo;
+import com.safetynet.alert.model.DTO.FireStationDTO.PeopleIdentity;
 import com.safetynet.alert.model.Person;
 import com.safetynet.alert.model.DTO.ChildDTO.ChildList;
 import com.safetynet.alert.repository.AllDataRepository;
 import com.safetynet.alert.service.AgeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import static com.safetynet.alert.model.DTO.FireStationDTO.PeopleIdentity.personToPeopleIdentityArray;
 
 @Component
 public class ChildService {
 
     private static Logger logger = LoggerFactory.getLogger(ChildService.class);
-    @Autowired
-    private AllDataRepository adr;
-    @Autowired
-    private AgeCalculator ageCalcul;
-
-    private ArrayList<Person> getPersons() throws FileNotFoundException {
-        return adr.getPersons();
+    private final AllDataRepository adr;
+    private final AgeCalculator ageCalcul;
+    public ChildService(AllDataRepository adr, AgeCalculator ageCalcul) {
+        this.adr = adr;
+        this.ageCalcul = ageCalcul;
     }
 
     public ChildList getChildrenInAddress(String address) throws FileNotFoundException {
@@ -49,8 +46,8 @@ public class ChildService {
         }
         return list;
     }
-    private ArrayList<Person> getPeopleInAddress(String address) throws FileNotFoundException {
-        ArrayList<Person> allPersons = getPersons();
+    public ArrayList<Person> getPeopleInAddress(String address) throws FileNotFoundException {
+        ArrayList<Person> allPersons = adr.getPersons();
         ArrayList<Person> personsInAddress = new ArrayList<>();
         for(int i=0; i<allPersons.size(); i++){
             if(allPersons.get(i).getAddress().equals(address)){
@@ -61,6 +58,19 @@ public class ChildService {
             logger.error("No one found in this address. Address may be wrong.");
         }
         return personsInAddress;
+    }
+    private ArrayList<PeopleIdentity> personToPeopleIdentityArray(ArrayList<Person> persons){ //converter
+        ArrayList<PeopleIdentity> list = new ArrayList<PeopleIdentity>();
+        for(int i=0; i< persons.size(); i++){
+            list.add(personToPeopleIdentity(persons.get(i)));
+        }
+        return list;
+    }
+    private PeopleIdentity personToPeopleIdentity(Person person){ //converter
+        PeopleIdentity p = new PeopleIdentity();
+        p.setFirstName(person.getFirstName());
+        p.setLastName(person.getLastName());
+        return p;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.get;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.DTO.ChildDTO.ChildList;
 import com.safetynet.alert.service.get.ChildService;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.edit;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.MedicalRecord;
 import com.safetynet.alert.service.edit.MedicalRecordEditer;
 import lombok.AllArgsConstructor;

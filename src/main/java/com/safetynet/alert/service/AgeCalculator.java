@@ -18,13 +18,10 @@ import java.util.ArrayList;
 @Component
 public class AgeCalculator {
     private static Logger logger = LoggerFactory.getLogger(AgeCalculator.class);
-    @Autowired
     private AllDataRepository adr;
-
-    public ArrayList<MedicalRecord> getMedicalRecords() throws FileNotFoundException{
-        return adr.getMedicalRecords();
+    public AgeCalculator(AllDataRepository adr) {
+        this.adr = adr;
     }
-
 
     public int getAge(Person p) throws FileNotFoundException {
         String birthDateString = getBirthDate(p);
@@ -34,10 +31,10 @@ public class AgeCalculator {
         return Period.between(birthDate, curDate).getYears();
 
     }
-    private String getBirthDate(Person p) throws FileNotFoundException {
+    public String getBirthDate(Person p) throws FileNotFoundException {
         String firstName = p.getFirstName();
         String lastName = p.getLastName();
-        ArrayList<MedicalRecord> records = getMedicalRecords();
+        ArrayList<MedicalRecord> records = adr.getMedicalRecords();
         for(int i=0; i<records.size(); i++){
             if(firstName.equals(records.get(i).getFirstName()) && lastName.equals(records.get(i).getLastName())){
                 logger.debug("Birthdate get : " + records.get(i).getBirthdate());

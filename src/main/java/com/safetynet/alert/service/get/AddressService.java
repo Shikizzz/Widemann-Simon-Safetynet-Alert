@@ -10,7 +10,6 @@ import com.safetynet.alert.repository.AllDataRepository;
 import com.safetynet.alert.service.AgeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
@@ -20,18 +19,12 @@ import java.util.ArrayList;
 public class AddressService {
 
     private static Logger logger = LoggerFactory.getLogger(AddressService.class);
-    @Autowired
-    private AllDataRepository adr;
-    @Autowired
-    private AgeCalculator ageCalcul;
-    private ArrayList<Person> getPersons() throws FileNotFoundException {
-        return adr.getPersons();
-    }
-    private ArrayList<FireStation> getFireStations() throws FileNotFoundException {
-        return adr.getFireStations();
-    }
-    private ArrayList<MedicalRecord> getMedicalRecords() throws FileNotFoundException{
-        return adr.getMedicalRecords();
+    private final AgeCalculator ageCalcul;
+    private final AllDataRepository adr;
+
+    public AddressService(AgeCalculator ageCalcul, AllDataRepository adr) {
+        this.ageCalcul = ageCalcul;
+        this.adr = adr;
     }
 
     public AddressInfos getAllAddressInfos(String address) throws FileNotFoundException { //
@@ -48,7 +41,7 @@ public class AddressService {
     }
     public ArrayList<Resident> getAllPeopleList(String address) throws FileNotFoundException {
         ArrayList<Resident> peopleInAddress = new ArrayList<>();
-        ArrayList<Person> persons = getPersons();
+        ArrayList<Person> persons = adr.getPersons();
         for(int i=0; i< persons.size(); i++){
             if(persons.get(i).getAddress().equals(address)){
                 Resident people = new Resident();
@@ -63,7 +56,7 @@ public class AddressService {
         return peopleInAddress;
     }
     public MedicalInfos getPersonMedicalInfos(Person person) throws FileNotFoundException {
-        ArrayList<MedicalRecord> medicalList = getMedicalRecords();
+        ArrayList<MedicalRecord> medicalList = adr.getMedicalRecords();
         MedicalInfos infos = new MedicalInfos();
         for(int i=0; i< medicalList.size(); i++){
             if(person.getFirstName().equals(medicalList.get(i).getFirstName())&&person.getLastName().equals(medicalList.get(i).getLastName())){
@@ -76,8 +69,8 @@ public class AddressService {
         logger.error("Medical Record not found in DataBase" );
         return infos; //empty if medical record not found in data.json
     }
-    private String getStationNumber(String address) throws FileNotFoundException {
-        ArrayList<FireStation> stations = getFireStations();
+    public String getStationNumber(String address) throws FileNotFoundException {
+        ArrayList<FireStation> stations = adr.getFireStations();
         for (int i=0; i<stations.size(); i++){
             if(stations.get(i).getAddress().equals(address)){
                 logger.debug("FireStation found in DataBase" );

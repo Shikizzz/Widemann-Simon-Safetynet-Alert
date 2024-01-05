@@ -1,6 +1,6 @@
 package com.safetynet.alert.controller.get;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.model.DTO.PersonInfoDTO.AllPersonInfo;
 import com.safetynet.alert.service.get.PersonInfoService;
 import lombok.AllArgsConstructor;

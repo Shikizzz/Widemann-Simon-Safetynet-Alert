@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -12,8 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class ControllersIntegrationTest {
+public class GetControllersIT {
     @Autowired
     private MockMvc mockMvc;
 
@@ -53,6 +55,7 @@ public class ControllersIntegrationTest {
         mockMvc.perform(get("/flood/stations?stations=1,2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.floodStationsList", hasSize(2)))
+                .andExpect(jsonPath("$.floodStationsList[0].stationNumber", is("1")))
                 .andExpect(jsonPath("$.floodStationsList[0].stationNumber", is("1")))
                 .andExpect(jsonPath("$.floodStationsList[0].foyers", hasSize(3)))
                 .andExpect(jsonPath("$.floodStationsList[0].foyers[0].address", is("644 Gershwin Cir")));

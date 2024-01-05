@@ -7,7 +7,6 @@ import com.safetynet.alert.model.DTO.FloodDTO.Foyer;
 import com.safetynet.alert.model.DTO.AddressDTO.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
@@ -16,10 +15,12 @@ import java.util.ArrayList;
 @Component
 public class FloodService {
     private static Logger logger = LoggerFactory.getLogger(FloodService.class);
-    @Autowired
-    private AddressService addressService; //we will reUse fonctions already written in other services
-    @Autowired
-    private FireStationService fireStationService;
+    private final AddressService addressService; //we will reUse fonctions already written in other services
+    private final FireStationService fireStationService;
+    public FloodService(AddressService addressService, FireStationService fireStationService) {
+        this.addressService = addressService;
+        this.fireStationService = fireStationService;
+    }
 
     public AllFloodStations getFloodInfo(ArrayList<String> stationNumbers) throws FileNotFoundException { //No real logic here, assembling info in the allFloodStations DTO
         AllFloodStations allFloodStations = new AllFloodStations();

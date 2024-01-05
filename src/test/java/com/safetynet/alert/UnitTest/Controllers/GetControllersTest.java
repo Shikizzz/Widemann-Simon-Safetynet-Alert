@@ -1,9 +1,9 @@
-package com.safetynet.alert.UnitTest;
+package com.safetynet.alert.UnitTest.Controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.safetynet.alert.CustomResponseEntity;
+import com.safetynet.alert.controller.CustomResponseEntity;
 import com.safetynet.alert.controller.get.*;
 import com.safetynet.alert.service.get.*;
 import org.junit.jupiter.api.Test;

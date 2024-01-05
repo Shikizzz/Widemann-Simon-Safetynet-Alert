@@ -3,28 +3,25 @@ package com.safetynet.alert.service.edit;
 import com.safetynet.alert.model.AllData;
 import com.safetynet.alert.model.FireStation;
 import com.safetynet.alert.repository.AllDataRepository;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-@Data
 @Repository
 public class FirestationEditer {
-
     private static Logger logger = LoggerFactory.getLogger(FirestationEditer.class);
-    @Autowired
-    private AllDataRepository adr;
+    private final AllDataRepository adr;
+    public FirestationEditer(AllDataRepository adr) {
+        this.adr=adr;
+    }
 
     public void postFirestation(String address, String stationNumber) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<FireStation> fireStations = adr.getFireStations();
+        ArrayList<FireStation> fireStations = data.getFirestations();
         FireStation newFirestation = new FireStation();
         newFirestation.setAddress(address);
         newFirestation.setStation(stationNumber) ;
@@ -42,7 +39,7 @@ public class FirestationEditer {
 
     public void putFirestation(String address, String stationNumber) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<FireStation> fireStations = adr.getFireStations();
+        ArrayList<FireStation> fireStations = data.getFirestations();
         for(int i=0; i<fireStations.size(); i++) {
             if (fireStations.get(i).getAddress().equals(address)){
                 fireStations.get(i).setStation(stationNumber);
@@ -57,7 +54,7 @@ public class FirestationEditer {
 
     public void deleteStationByAddress(String address) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<FireStation> fireStations = adr.getFireStations();
+        ArrayList<FireStation> fireStations = data.getFirestations();
         for(int i=0; i<fireStations.size(); i++) {
             if (fireStations.get(i).getAddress().equals(address)){
                 fireStations.remove(i);
@@ -72,7 +69,7 @@ public class FirestationEditer {
 
     public void deleteStationByNumber(String stationNumber) throws FileNotFoundException {
         AllData data = adr.getData();
-        ArrayList<FireStation> fireStations = adr.getFireStations();
+        ArrayList<FireStation> fireStations = data.getFirestations();
         Iterator<FireStation> itr = fireStations.iterator();
         boolean foundOne = false;
         while (itr.hasNext()) {
@@ -82,9 +79,9 @@ public class FirestationEditer {
                 foundOne = true;
             }
         }
-        data.setFirestations(fireStations);
-        adr.modifyData(data);
         if(foundOne){
+            data.setFirestations(fireStations);
+            adr.modifyData(data);
             logger.info("Firestations deleted from Database successfully");
         }
         else logger.error("No Firestation with this number found in DataBase, nothing to delete");

@@ -9,7 +9,6 @@ import com.safetynet.alert.repository.AllDataRepository;
 import com.safetynet.alert.service.AgeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
@@ -19,16 +18,11 @@ import java.util.HashSet;
 @Component
 public class FireStationService {
     private static Logger logger = LoggerFactory.getLogger(FireStationService.class);
-    @Autowired
-    private AllDataRepository adr;
-    @Autowired
-    private AgeCalculator ageCalcul;
-
-    private ArrayList<Person> getPersons() throws FileNotFoundException {
-        return adr.getPersons();
-    }
-    private ArrayList<FireStation> getFireStations() throws FileNotFoundException {
-        return adr.getFireStations();
+    private final AllDataRepository adr;
+    private final AgeCalculator ageCalcul;
+    public FireStationService(AllDataRepository adr, AgeCalculator ageCalcul) {
+        this.adr = adr;
+        this.ageCalcul = ageCalcul;
     }
 
     public AllPersonsInStationZone getAllPersonsInStationZone(String stationNumber) throws FileNotFoundException {
@@ -50,8 +44,8 @@ public class FireStationService {
         return result;
     }
 
-    private ArrayList<Person> getPersonsInStationZone(String stationNumber) throws FileNotFoundException {
-        ArrayList<Person> persons = getPersons();
+    public ArrayList<Person> getPersonsInStationZone(String stationNumber) throws FileNotFoundException {
+        ArrayList<Person> persons = adr.getPersons();
         ArrayList<FireStation> stationList = filterStationsByZone(stationNumber);
         ArrayList<Person> personsInZone = new ArrayList<>();
         for (int i = 0; i < persons.size(); i++) { //for each person, we look if it is in Station zone
@@ -70,7 +64,7 @@ public class FireStationService {
     }
     public ArrayList<FireStation> filterStationsByZone(String stationNumber) throws FileNotFoundException {
         ArrayList<FireStation> stationList = new ArrayList<>();
-        ArrayList<FireStation> fireStations = getFireStations();
+        ArrayList<FireStation> fireStations = adr.getFireStations();
         for (int i = 0; i < fireStations.size(); i++) {
             if (fireStations.get(i).getStation().equals(stationNumber)) {
                 stationList.add(fireStations.get(i));
@@ -92,7 +86,6 @@ public class FireStationService {
         p.setPhone(person.getPhone());
         return p;
     }
-
     public static ArrayList<PersonInStationZone> personToPersonInStationZoneArray(ArrayList<Person> persons) { //transformer
         ArrayList<PersonInStationZone> p = new ArrayList<>();
         for (int i=0; i< persons.size(); i++){
@@ -100,7 +93,6 @@ public class FireStationService {
         }
         return p;
     }
-
 
     public PhoneList getPhoneNumberInStationZone(String stationNumber) throws FileNotFoundException {
         ArrayList<Person> persons = getPersonsInStationZone(stationNumber);
