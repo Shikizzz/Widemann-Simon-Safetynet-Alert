@@ -1,5 +1,5 @@
 package com.safetynet.alert.repository;
-import com.safetynet.alert.CustomProperties;
+
 import com.safetynet.alert.model.AllData;
 
 import com.safetynet.alert.model.FireStation;
@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import lombok.Data;
+
 import java.io.File;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileNotFoundException;
@@ -45,19 +47,23 @@ public class AllDataRepository {
         }
         return allData;
     }
+
     public ArrayList<Person> getPersons() throws FileNotFoundException {
         AllData allData = getData();
         return allData.getPersons();
     }
+
     public ArrayList<FireStation> getFireStations() throws FileNotFoundException {
         AllData allData = getData();
         return allData.getFirestations();
     }
+
     public ArrayList<MedicalRecord> getMedicalRecords() throws FileNotFoundException {
         AllData allData = getData();
         return allData.getMedicalrecords();
     }
-    public void modifyData(AllData data){
+
+    public void modifyData(AllData data) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, data);

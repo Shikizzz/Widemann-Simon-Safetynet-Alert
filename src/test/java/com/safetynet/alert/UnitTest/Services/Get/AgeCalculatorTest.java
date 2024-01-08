@@ -1,4 +1,4 @@
-package com.safetynet.alert.UnitTest.Services;
+package com.safetynet.alert.UnitTest.Services.Get;
 
 import com.safetynet.alert.UnitTest.Services.TestDataConstant;
 import com.safetynet.alert.repository.AllDataRepository;

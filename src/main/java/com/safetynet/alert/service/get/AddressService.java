@@ -31,19 +31,19 @@ public class AddressService {
         AddressInfos infos = new AddressInfos();
         infos.setPeopleList(getAllPeopleList(address));
         infos.setFireStationNumber(getStationNumber(address));
-        if(infos.getPeopleList().size()==0){
-            logger.error("Address not found in DataBase" );
-        }
-        else{
+        if (infos.getPeopleList().size() == 0) {
+            logger.error("Address not found in DataBase");
+        } else {
             logger.info("Address found in DataBase, list of resident sent");
         }
         return infos;
     }
+
     public ArrayList<Resident> getAllPeopleList(String address) throws FileNotFoundException {
         ArrayList<Resident> peopleInAddress = new ArrayList<>();
         ArrayList<Person> persons = adr.getPersons();
-        for(int i=0; i< persons.size(); i++){
-            if(persons.get(i).getAddress().equals(address)){
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getAddress().equals(address)) {
                 Resident people = new Resident();
                 people.setFirstName(persons.get(i).getFirstName());
                 people.setLastName(persons.get(i).getLastName());
@@ -55,29 +55,31 @@ public class AddressService {
         }
         return peopleInAddress;
     }
+
     public MedicalInfos getPersonMedicalInfos(Person person) throws FileNotFoundException {
         ArrayList<MedicalRecord> medicalList = adr.getMedicalRecords();
         MedicalInfos infos = new MedicalInfos();
-        for(int i=0; i< medicalList.size(); i++){
-            if(person.getFirstName().equals(medicalList.get(i).getFirstName())&&person.getLastName().equals(medicalList.get(i).getLastName())){
+        for (int i = 0; i < medicalList.size(); i++) {
+            if (person.getFirstName().equals(medicalList.get(i).getFirstName()) && person.getLastName().equals(medicalList.get(i).getLastName())) {
                 infos.setMedications(medicalList.get(i).getMedications());
                 infos.setAllergies(medicalList.get(i).getAllergies());
-                logger.debug("Medical Record found in DataBase, list of medications and allergies sent" );
+                logger.debug("Medical Record found in DataBase, list of medications and allergies sent");
                 return infos; //LastName & FirstName is unique in MedicalInfo DB
             }
         }
-        logger.error("Medical Record not found in DataBase" );
+        logger.error("Medical Record not found in DataBase");
         return infos; //empty if medical record not found in data.json
     }
+
     public String getStationNumber(String address) throws FileNotFoundException {
         ArrayList<FireStation> stations = adr.getFireStations();
-        for (int i=0; i<stations.size(); i++){
-            if(stations.get(i).getAddress().equals(address)){
-                logger.debug("FireStation found in DataBase" );
+        for (int i = 0; i < stations.size(); i++) {
+            if (stations.get(i).getAddress().equals(address)) {
+                logger.debug("FireStation found in DataBase");
                 return stations.get(i).getStation();
             }
         }
-        logger.error("Reference Firestation not found. Address may be wrong" );
+        logger.error("Reference Firestation not found. Address may be wrong");
         return null;
     }
 

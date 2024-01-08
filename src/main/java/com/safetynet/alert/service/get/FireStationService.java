@@ -20,6 +20,7 @@ public class FireStationService {
     private static Logger logger = LoggerFactory.getLogger(FireStationService.class);
     private final AllDataRepository adr;
     private final AgeCalculator ageCalcul;
+
     public FireStationService(AllDataRepository adr, AgeCalculator ageCalcul) {
         this.adr = adr;
         this.ageCalcul = ageCalcul;
@@ -38,7 +39,7 @@ public class FireStationService {
         }
         ArrayList<PersonInStationZone> persons = personToPersonInStationZoneArray(p);
         AllPersonsInStationZone result = new AllPersonsInStationZone(persons, adultCount, childrenCount);
-        if(p.size()>0) {
+        if (p.size() > 0) {
             logger.info("There are " + childrenCount + " children and " + adultCount + " adults at this Address. Their info has beeen retrieved");
         }
         return result;
@@ -57,11 +58,12 @@ public class FireStationService {
                 }
             }
         }
-        if(personsInZone.size()==0){
+        if (personsInZone.size() == 0) {
             logger.error("No one found in the Firestation zone");
         }
         return personsInZone;
     }
+
     public ArrayList<FireStation> filterStationsByZone(String stationNumber) throws FileNotFoundException {
         ArrayList<FireStation> stationList = new ArrayList<>();
         ArrayList<FireStation> fireStations = adr.getFireStations();
@@ -70,13 +72,13 @@ public class FireStationService {
                 stationList.add(fireStations.get(i));
             }
         }
-        if(stationList.size()==0){
-            logger.error("No Firestation with number "+stationNumber+" found in database. Please retry with another number.");
+        if (stationList.size() == 0) {
+            logger.error("No Firestation with number " + stationNumber + " found in database. Please retry with another number.");
         }
         return stationList;
     }
 
-    public static PersonInStationZone personToPersonInStationZone(Person person){ //transformer
+    public static PersonInStationZone personToPersonInStationZone(Person person) { //transformer
         PersonInStationZone p = new PersonInStationZone();
         p.setFirstName(person.getFirstName());
         p.setLastName(person.getLastName());
@@ -86,9 +88,10 @@ public class FireStationService {
         p.setPhone(person.getPhone());
         return p;
     }
+
     public static ArrayList<PersonInStationZone> personToPersonInStationZoneArray(ArrayList<Person> persons) { //transformer
         ArrayList<PersonInStationZone> p = new ArrayList<>();
-        for (int i=0; i< persons.size(); i++){
+        for (int i = 0; i < persons.size(); i++) {
             p.add(personToPersonInStationZone(persons.get(i)));
         }
         return p;
@@ -97,13 +100,13 @@ public class FireStationService {
     public PhoneList getPhoneNumberInStationZone(String stationNumber) throws FileNotFoundException {
         ArrayList<Person> persons = getPersonsInStationZone(stationNumber);
         ArrayList<String> phoneNumbers = new ArrayList<>();
-        for(int i=0; i<persons.size(); i++){
+        for (int i = 0; i < persons.size(); i++) {
             phoneNumbers.add(persons.get(i).getPhone());
         }
         ArrayList<String> phoneNumbersNoDouble = new ArrayList<>(new HashSet<>(phoneNumbers)); //removes doubles
         PhoneList phoneList = new PhoneList();
         phoneList.setPhoneNumbers(phoneNumbersNoDouble);
-        if(phoneNumbersNoDouble.size()>0) {
+        if (phoneNumbersNoDouble.size() > 0) {
             logger.info("The list of all Phone Numbers from people in Firestation" + stationNumber + "\'s juridiction have been retrieved");
         }
         return phoneList;

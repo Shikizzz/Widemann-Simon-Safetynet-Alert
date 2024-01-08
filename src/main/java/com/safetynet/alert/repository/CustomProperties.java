@@ -1,4 +1,4 @@
-package com.safetynet.alert;
+package com.safetynet.alert.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;

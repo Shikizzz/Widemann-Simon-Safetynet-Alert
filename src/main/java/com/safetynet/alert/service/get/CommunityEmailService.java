@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
+
 @Component
 public class CommunityEmailService {
     private static Logger logger = LoggerFactory.getLogger(CommunityEmailService.class);
     private final AllDataRepository adr;
+
     public CommunityEmailService(AllDataRepository adr) {
         this.adr = adr;
     }
@@ -21,18 +23,17 @@ public class CommunityEmailService {
     public CityEmails getCityEmail(String city) throws FileNotFoundException {
         ArrayList<String> eMails = new ArrayList<>();
         ArrayList<Person> persons = adr.getPersons();
-        for(int i=0; i< persons.size(); i++){
-            if(persons.get(i).getCity().equals(city)){ // to scale with a bigger Database
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getCity().equals(city)) { // to scale with a bigger Database
                 eMails.add(persons.get(i).getEmail());
             }
         }
         ArrayList<String> eMailsNoDouble = new ArrayList<>(new HashSet<>(eMails)); //removes doubles
         CityEmails cityEmails = new CityEmails();
         cityEmails.setEMail(eMailsNoDouble);
-        if (eMailsNoDouble.size()==0){
+        if (eMailsNoDouble.size() == 0) {
             logger.error("No one found in this city. Spelling may be wrong");
-        }
-        else logger.info("Email addresses of citizen from "+city+" retrieved");
+        } else logger.info("Email addresses of citizen from " + city + " retrieved");
         return cityEmails;
     }
 

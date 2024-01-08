@@ -12,10 +12,4 @@ public class CustomResponseEntity {
                 .header("ErrorCause", "DataBase file not found. Please report the problem to SafetyNet admins")
                 .body("DataBase file not found. Please report the problem to SafetyNet admins");
     }
-
-    public ResponseEntity<String> FileNotFoundEditResponseEntity() {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .header("ErrorCause", "DataBase file not found. Please report the problem to SafetyNet admins")
-                .body("DataBase file not found. Please report the problem to SafetyNet admins");
-    }
 }

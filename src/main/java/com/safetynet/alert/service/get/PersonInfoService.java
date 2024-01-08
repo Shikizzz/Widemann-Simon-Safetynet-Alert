@@ -28,18 +28,17 @@ public class PersonInfoService {
     public AllPersonInfo getAllPersonInCityInfo(String firstName, String lastName) throws FileNotFoundException {
         ArrayList<Person> persons = adr.getPersons();
         ArrayList<PersonInfo> personsInfo = new ArrayList<>();
-        for (int i=0; i< persons.size(); i++){
-            if(persons.get(i).getFirstName().equals(firstName)&&persons.get(i).getLastName().equals(lastName)){
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getFirstName().equals(firstName) && persons.get(i).getLastName().equals(lastName)) {
                 PersonInfo p = personToPersonInfo(persons.get(i));
                 personsInfo.add(p);
             }
         }
         AllPersonInfo allPersonInfo = new AllPersonInfo();
         allPersonInfo.setPersonsInfo(personsInfo);
-        if (personsInfo.size()==0){
+        if (personsInfo.size() == 0) {
             logger.error("No one found with this name in DataBase");
-        }
-        else logger.info("All persons named "+firstName+" "+lastName+" info has been retrieved");
+        } else logger.info("All persons named " + firstName + " " + lastName + " info has been retrieved");
         return allPersonInfo;
     }
 
