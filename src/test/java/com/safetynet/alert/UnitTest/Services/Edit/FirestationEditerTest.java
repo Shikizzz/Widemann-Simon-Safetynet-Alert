@@ -22,13 +22,8 @@ public class FirestationEditerTest {
 
     @BeforeEach
     void setup() throws FileNotFoundException {
-        //doNothing().when(adr).modifyData(any(AllData.class));
         when(adr.getData()).thenReturn(TestDataConstant.testData);
-    }/*
-    @AfterEach
-    void teardown(){
-        TestDataConstant.testData.setFirestations(TestDataConstant.testFireStationsList); //useless
-    }*/
+    }
 
     @Test
     void postNewFirestationTest() throws FileNotFoundException {

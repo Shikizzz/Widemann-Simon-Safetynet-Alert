@@ -6,7 +6,6 @@ import com.safetynet.alert.model.DTO.AddressDTO.Resident;
 import com.safetynet.alert.model.FireStation;
 import com.safetynet.alert.model.MedicalRecord;
 import com.safetynet.alert.model.Person;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,8 +47,7 @@ public class TestDataConstant {
     public static final ArrayList<FireStation> fireStationsListWithNumber3 = new ArrayList<>(Arrays.asList(fireStation1, fireStation3));
     public static final ArrayList<FireStation> fireStationsListWithNumber2 = new ArrayList<>(Arrays.asList(fireStation2));
 
-    public static AllData testData = new AllData(testPersonsList, testFireStationsList, testMedicalRecordsList);
-    public static final AllData testDataSecondInstance = new AllData(testPersonsList, testFireStationsList, testMedicalRecordsList);
+    public static final AllData testData = new AllData(testPersonsList, testFireStationsList, testMedicalRecordsList);
 
     public static MedicalInfos medicalInfos1 = new MedicalInfos(medications1, allergies1);
     public static MedicalInfos medicalInfos2 = new MedicalInfos(medications2, allergies2);
