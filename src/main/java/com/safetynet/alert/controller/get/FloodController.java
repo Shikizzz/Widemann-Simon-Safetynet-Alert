@@ -26,14 +26,21 @@ public class FloodController {
     @GetMapping("/flood/stations")
     public ResponseEntity getFloodInfo(@RequestParam ArrayList<String> stations) throws Exception {
         try {
-            if (floodService.getFloodInfo(stations).getFloodStationsList().size() > 0) {
+            if (floodService.getFloodInfo(stations).getFloodStationsList().size() == stations.size()) {
                 logger.info("Endpoint GET/flood/stations used successfully, info retrieved");
                 return ResponseEntity.status(HttpStatus.OK)
                         .body(floodService.getFloodInfo(stations));
             } else {
-                logger.info("Endpoint GET/flood/stations used successfully, but no info found");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Noone found in this Firestation's jurisdiction. Station numbers may be wrong");
+                if (floodService.getFloodInfo(stations).getFloodStationsList().size() > 0) {
+                    logger.info("Endpoint GET/flood/stations used successfully, but some firestations not found");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .header("Error", "Some Firestations of the list not found")
+                            .body(floodService.getFloodInfo(stations));
+                } else {
+                    logger.info("Endpoint GET/flood/stations used successfully, but no info found");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body("Noone found in this Firestation's jurisdiction. Station numbers may be wrong");
+                }
             }
         } catch (FileNotFoundException e) {
             logger.error("Endpoint GET/flood/stations used, but DataBase File not found");
