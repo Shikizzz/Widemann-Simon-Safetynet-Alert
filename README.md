@@ -1,6 +1,6 @@
 This project is part of OpenClassrooms formation (Développeur d'applications - Java).
 
-First project using Spring Boot. It uses a Json file as Database.
+First project using Spring Boot, and MVC architecture. It uses a Json file as Database.
 
 This project is a REST API, designed to support Emergency Services.
 
